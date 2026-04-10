@@ -1,66 +1,50 @@
+ class TrainConsistApp {
 
-// Custom Runtime Exception
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+    // Bubble Sort Method
+    public static void bubbleSort(int[] capacities) {
+        int n = capacities.length;
 
-// Goods Bogie Class
-class GoodsBogie {
-    String type;   // Cylindrical / Rectangular
-    String cargo;  // Petroleum / Coal / Grain
+        // Outer loop for passes
+        for (int i = 0; i < n - 1; i++) {
 
-    public GoodsBogie(String type) {
-        this.type = type;
-    }
+            // Inner loop for comparison
+            for (int j = 0; j < n - i - 1; j++) {
 
-    // Method to assign cargo safely
-    public void assignCargo(String cargo) {
-
-        try {
-            // Rule: Rectangular cannot carry Petroleum
-            if (type.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-
-                throw new CargoSafetyException(
-                        "Unsafe Assignment: Rectangular bogie cannot carry Petroleum"
-                );
+                // Swap if out of order
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
             }
-
-            // Safe assignment
-            this.cargo = cargo;
-            System.out.println("Cargo assigned successfully: " + type + " -> " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("ERROR: " + e.getMessage());
-
-        } finally {
-            System.out.println("Assignment attempt completed for " + type);
         }
     }
-}
 
-// Main Application
- class TrainConsistApp {
+    // Utility method to print array
+    public static void printArray(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+    }
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create bogies
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        // Step 1: Create array of capacities
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        // Safe assignment
-        b1.assignCargo("Petroleum");
+        System.out.print("\nBefore Sorting: ");
+        printArray(capacities);
 
-        // Unsafe assignment
-        b2.assignCargo("Petroleum");
+        // Step 2: Apply Bubble Sort
+        bubbleSort(capacities);
 
-        // Program continues
-        b2.assignCargo("Coal");
+        // Step 3: Display sorted result
+        System.out.print("After Sorting:  ");
+        printArray(capacities);
 
-        System.out.println("\nProgram continues safely...");
+        System.out.println("\nProgram continues...");
     }
 }
