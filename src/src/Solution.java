@@ -1,21 +1,45 @@
 import java.util.ArrayList;
-import java.util.List;
 
-class TrainConsistApp {
+ class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        // Welcome Message
+        // Step 1: Welcome Message
         System.out.println("=== Train Consist Management App ===");
 
-        // Initialize Train Consist (Empty List)
-        List<String> trainConsist = new ArrayList<>();
+        // Step 2: Create ArrayList for Passenger Bogies
+        ArrayList<String> passengerBogies = new ArrayList<>();
 
-        // Display Initial Bogie Count
-        System.out.println("Train consist initialized.");
-        System.out.println("Initial number of bogies: " + trainConsist.size());
+        // Step 3: Add Passenger Bogies
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-        // Program continues...
-        System.out.println("System ready to add bogies.");
+        System.out.println("\nPassenger bogies added successfully.");
+
+        // Step 4: Display Bogies (READ)
+        System.out.println("\nCurrent Passenger Bogies:");
+        for (String bogie : passengerBogies) {
+            System.out.println(bogie);
+        }
+
+        // Step 5: Remove a Bogie (DELETE)
+        passengerBogies.remove("AC Chair");
+        System.out.println("\nAC Chair bogie removed.");
+
+        // Step 6: Check Existence (SEARCH)
+        if (passengerBogies.contains("Sleeper")) {
+            System.out.println("\nSleeper bogie exists in the train.");
+        } else {
+            System.out.println("\nSleeper bogie does NOT exist.");
+        }
+
+        // Step 7: Final List State
+        System.out.println("\nFinal Passenger Bogies:");
+        for (String bogie : passengerBogies) {
+            System.out.println(bogie);
+        }
+
+        System.out.println("\nProgram continues...");
     }
 }
