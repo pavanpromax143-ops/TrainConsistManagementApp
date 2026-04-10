@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
  class TrainConsistApp {
 
@@ -7,38 +7,25 @@ import java.util.ArrayList;
         // Step 1: Welcome Message
         System.out.println("=== Train Consist Management App ===");
 
-        // Step 2: Create ArrayList for Passenger Bogies
-        ArrayList<String> passengerBogies = new ArrayList<>();
+        // Step 2: Create HashSet for Bogie IDs
+        HashSet<String> bogieIds = new HashSet<>();
 
-        // Step 3: Add Passenger Bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Step 3: Add Bogie IDs (including duplicates)
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
+        bogieIds.add("BG101"); // Duplicate
+        bogieIds.add("BG102"); // Duplicate
 
-        System.out.println("\nPassenger bogies added successfully.");
+        System.out.println("\nBogie IDs added (including duplicates).");
 
-        // Step 4: Display Bogies (READ)
-        System.out.println("\nCurrent Passenger Bogies:");
-        for (String bogie : passengerBogies) {
-            System.out.println(bogie);
+        // Step 4: Display Unique Bogie IDs
+        System.out.println("\nUnique Bogie IDs in Train:");
+        for (String id : bogieIds) {
+            System.out.println(id);
         }
 
-        // Step 5: Remove a Bogie (DELETE)
-        passengerBogies.remove("AC Chair");
-        System.out.println("\nAC Chair bogie removed.");
-
-        // Step 6: Check Existence (SEARCH)
-        if (passengerBogies.contains("Sleeper")) {
-            System.out.println("\nSleeper bogie exists in the train.");
-        } else {
-            System.out.println("\nSleeper bogie does NOT exist.");
-        }
-
-        // Step 7: Final List State
-        System.out.println("\nFinal Passenger Bogies:");
-        for (String bogie : passengerBogies) {
-            System.out.println(bogie);
-        }
+        System.out.println("\nTotal Unique Bogies: " + bogieIds.size());
 
         System.out.println("\nProgram continues...");
     }
