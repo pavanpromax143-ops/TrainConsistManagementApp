@@ -1,60 +1,50 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-// Step 1: Create Bogie Class
+// Bogie class (same as UC7)
 class Bogie {
     String name;
     int capacity;
 
-    // Constructor
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    // Display method
     @Override
     public String toString() {
         return name + " -> " + capacity + " seats";
     }
 }
 
- class TrainConsistApp {
+class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        // Step 2: Welcome Message
         System.out.println("=== Train Consist Management App ===");
 
-        // Step 3: Create List of Bogies
+        // Step 1: Create list of bogies
         List<Bogie> bogies = new ArrayList<>();
-
-        // Step 4: Add Bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 40));
 
-        System.out.println("\nBefore Sorting:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        System.out.println("\nOriginal Bogie List:");
+        bogies.forEach(System.out::println);
 
-        // Step 5: Sort using Comparator (by capacity)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        // Step 2: Define capacity threshold
+        int threshold = 60;
 
-        System.out.println("\nAfter Sorting (Ascending by Capacity):");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        // Step 3: Stream filtering
+        List<Bogie> filteredBogies =
+                bogies.stream()
+                        .filter(b -> b.capacity > threshold)
+                        .collect(Collectors.toList());
 
-        // Optional: Descending order
-        bogies.sort(Comparator.comparingInt((Bogie b) -> b.capacity).reversed());
-
-        System.out.println("\nAfter Sorting (Descending by Capacity):");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        // Step 4: Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > " + threshold + "):");
+        filteredBogies.forEach(System.out::println);
 
         System.out.println("\nProgram continues...");
     }
