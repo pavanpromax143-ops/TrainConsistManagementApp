@@ -1,3 +1,4 @@
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -7,47 +8,55 @@ class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Step 1: Create bogie IDs (can be unsorted)
-        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        // Step 1: Create bogie array (try empty {} to test exception)
+        String[] bogieIds = {"BG101", "BG205", "BG309"};
 
-        // Step 2: Sort the array (important precondition)
-        Arrays.sort(bogieIds);
-
-        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
-
-        // Step 3: Take input from user
+        // Step 2: Take input
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Bogie ID to search: ");
         String key = scanner.nextLine();
 
-        // Step 4: Binary Search
-        int low = 0;
-        int high = bogieIds.length - 1;
-        boolean found = false;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            int comparison = bogieIds[mid].compareTo(key);
-
-            if (comparison == 0) {
-                System.out.println("Bogie found at position: " + mid);
-                found = true;
-                break;
-            } else if (comparison < 0) {
-                low = mid + 1; // Search right half
-            } else {
-                high = mid - 1; // Search left half
+        try {
+            // Step 3: Validate state (FAIL-FAST)
+            if (bogieIds.length == 0) {
+                throw new IllegalStateException("No bogies available in the train to search.");
             }
-        }
 
-        // Step 5: Result
-        if (found) {
-            System.out.println("Result: Bogie ID exists in the train.");
-        } else {
-            System.out.println("Result: Bogie ID not found.");
+            // Step 4: (Optional) Sort before binary search
+            Arrays.sort(bogieIds);
+
+            // Step 5: Perform Binary Search
+            boolean found = binarySearch(bogieIds, key);
+
+            // Step 6: Display result
+            if (found) {
+                System.out.println("Result: Bogie ID exists in the train.");
+            } else {
+                System.out.println("Result: Bogie ID not found.");
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
         scanner.close();
+    }
+
+    // Binary Search Method
+    public static boolean binarySearch(String[] arr, String key) {
+
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            int cmp = arr[mid].compareTo(key);
+
+            if (cmp == 0) return true;
+            else if (cmp < 0) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return false;
     }
 }
